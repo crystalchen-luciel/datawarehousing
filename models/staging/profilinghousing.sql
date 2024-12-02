@@ -1,0 +1,1 @@
+{{ dbt_profiler.get_profile(relation=ref("housing_maintenace_data")) }}
