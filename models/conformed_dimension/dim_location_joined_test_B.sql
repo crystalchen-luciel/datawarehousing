@@ -21,3 +21,4 @@ with
 
 select *
 from dim_location_joined
+order by dim_location_joined_id asc
