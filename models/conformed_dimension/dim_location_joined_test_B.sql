@@ -5,7 +5,7 @@ with
         select row_number() over () as dim_location_joined_id, *
         from
             (
-                select distinct unique_key,
+                select distinct unique_key, problem_id,
                     coalesce(loc311.borough, loc_housing.borough) as borough,
                     coalesce(loc311.zip_code, loc_housing.zip_code) as zip_code,
                     city,
@@ -14,8 +14,8 @@ with
                 from location_311 loc311
                 full outer join
                     location_housing loc_housing
-                    on loc311.borough = loc_housing.borough
-                    and loc311.zip_code = loc_housing.zip_code
+                    on loc311.unique_key = loc_housing.problem_id
+                where unique_key is not null and council_district is not null
             )
     )
 
