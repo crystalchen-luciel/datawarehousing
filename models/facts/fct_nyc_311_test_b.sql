@@ -10,10 +10,10 @@ select distinct
     dim_date_id,
     dim_complaint_type_311_id
 from fct_nyc_311 as fct
-left join location_joined on fct.borough = location_joined.borough and fct.incident_zip = location_joined.zip_code and fct.city = location_joined.city
+left join location_joined on fct.unique_key = location_joined.problem_id
 left join date_311 on fct.created_date = date_311.date_created
 left join complaint_type_311 on UPPER(fct.complaint_type) = UPPER(complaint_type_311.complaint_type)
-
+order by unique_key asc
 
 /* with
     location_311 as (select * from {{ ref("dim_location_311") }}),
