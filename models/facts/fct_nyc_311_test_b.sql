@@ -2,19 +2,21 @@ with
     location_joined as (select * from {{ ref("dim_location_joined_test_B") }}),
     date_311 as (select * from {{ ref("dim_date") }}),
     complaint_type_311 as (select * from {{ ref("dim_complaint_type_311") }} ),
-    fct_nyc_311 as (select *, created_date as date_created_311 from {{ ref("cleaned_311_data")}})
+    fct_nyc_311 as (select * from {{ ref("cleaned_311_data_test_B")}})
 
 select distinct
     unique_key,
     dim_location_joined_id,
     dim_date_id,
-    dim_complaint_type_311_id
+    dim_complaint_type_311_id,
+    created_date
 from fct_nyc_311 as fct
-left join location_joined on fct.borough = location_joined.borough
+inner join location_joined on fct.borough = location_joined.borough
 and fct.incident_zip = location_joined.zip_code
-left join date_311 on fct.date_created_311 = date_311.date_created
-left join complaint_type_311 on UPPER(fct.complaint_type) = UPPER(complaint_type_311.complaint_type)
-where unique_key is not null
+inner join date_311 on fct.created_date= date_311.date_created
+inner join complaint_type_311 on UPPER(fct.complaint_type) = UPPER(complaint_type_311.complaint_type)
+where date_311.date_created = '2010-01-28'
+order by unique_key asc
 
 /* with
     location_311 as (select * from {{ ref("dim_location_311") }}),
