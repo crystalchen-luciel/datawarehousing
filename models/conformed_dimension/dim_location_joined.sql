@@ -22,3 +22,4 @@ with
 
 select *
 from dim_location_joined
+where dim_location_joined_id = 12195

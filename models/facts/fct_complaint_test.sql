@@ -6,7 +6,7 @@ with
     status as (select * from {{ ref("dim_status") }}),
     fct_complaint as (select * from {{ ref("cleaned_housing_maintenance_data") }})
 select distinct
-    fct.unique_key,
+    fct.problem_id,
     dim_location_joined_id,
     dim_date_id,
     dim_status_id,
