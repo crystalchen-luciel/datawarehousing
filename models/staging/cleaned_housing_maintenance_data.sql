@@ -20,6 +20,7 @@ with deduplicated_data as (
     from {{ ref('housing_maintenace_data') }}
     where
         problem_id is not null
+        and complaint_id is not null
         and post_code is not null
         and council_district is not null
         and received_date IS NOT NULL
