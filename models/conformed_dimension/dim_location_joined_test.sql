@@ -14,10 +14,11 @@ with
                 from location_311 loc311
                 full outer join
                     location_housing loc_housing
-                    on loc311.borough = loc_housing.borough and loc311.zip_code = loc_housing.zip_code
+                    on loc311.borough = loc_housing.borough
+                    and loc311.zip_code = loc_housing.zip_code
+                where loc_housing.council_district is not null
             )
     )
 
 select *
 from dim_location_joined
-order by dim_location_joined_id asc 
