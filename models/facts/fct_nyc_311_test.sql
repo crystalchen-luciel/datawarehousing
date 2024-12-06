@@ -1,5 +1,5 @@
 with
-    location_joined as (select * from {{ ref("dim_location_joined") }}),
+    location_joined as (select * from {{ ref("dim_location_joined_test") }}),
     fct_nyc_311 as (select *
              from {{ ref("cleaned_311_data")}} )
 
