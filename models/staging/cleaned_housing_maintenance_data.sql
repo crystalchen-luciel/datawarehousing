@@ -27,4 +27,4 @@ with deduplicated_data as (
 )
 select *
 from deduplicated_data
-where row_num = 1
+where row_num = 1 

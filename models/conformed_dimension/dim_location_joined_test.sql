@@ -6,8 +6,8 @@ with
         from
             (
                 select distinct
-                    coalesce(loc311.borough, loc_housing.borough) as borough,
-                    coalesce(loc311.zip_code, loc_housing.zip_code) as zip_code,
+                    loc311.borough, loc_housing.borough as borough,
+                    loc311.zip_code, loc_housing.zip_code as zip_code,
                     city,
                     loc_housing.council_district,
                     loc_housing.block
@@ -22,3 +22,4 @@ with
 
 select *
 from dim_location_joined
+where dim_location_joined_id = 2896
