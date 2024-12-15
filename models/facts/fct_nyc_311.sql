@@ -1,23 +1,21 @@
 with
     location_joined as (select * from {{ ref("dim_location_joined") }}),
     date_311 as (select * from {{ ref("dim_date") }}),
-    complaint_type_311 as (select * from {{ ref("dim_complaint_type_311") }} ),
-    fct_nyc_311 as (select * from {{ ref("cleaned_311_data")}})
+    complaint_type_311 as (select * from {{ ref("dim_complaint_type_311") }}),
+    fct_nyc_311 as (select * from {{ ref("cleaned_311_data") }})
 
-select 
-    unique_key,
-    dim_location_joined_id,
-    dim_date_id,
-    dim_complaint_type_311_id
+select unique_key, dim_location_joined_id, dim_date_id, dim_complaint_type_311_id
 from fct_nyc_311 as fct
-left join location_joined on fct.incident_zip = location_joined.zip_code
-and fct.borough = location_joined.borough
+left join
+    location_joined
+    on fct.incident_zip = location_joined.zip_code
+    and fct.borough = location_joined.borough
 left join date_311 on fct.created_date = date_311.date_created
-left join complaint_type_311 on UPPER(fct.complaint_type) = UPPER(complaint_type_311.complaint_type)
+left join
+    complaint_type_311
+    on upper(fct.complaint_type) = upper(complaint_type_311.complaint_type)
 
-
-
-/* with
+    /* with
     location_311 as (select * from {{ ref("dim_location_311") }}),
     date_311 as (select * from {{ ref("dim_date") }}),
     complaint_type_311 as (select * from {{ ref("dim_complaint_type_311") }} ),
@@ -35,8 +33,7 @@ and fct.city = location_311.city
 left join date_311 on fct.date_created_311 = date_311.date_created
 left join complaint_type_311 on UPPER(fct.complaint_type) = UPPER(complaint_type_311.complaint_type)
 where unique_key is not null */
-
-/* with 
+    /* with 
     location_311 as (select * from {{ ref('dim_location_311') }}),
     location_housing as (select * from {{ ref('dim_location') }}),
     dim_location_joined as (
@@ -71,3 +68,4 @@ left join dim_date
     on fct.date_created_311 = dim_date.date_created
 left join dim_complaint_type_311 
     on UPPER(fct.complaint_type) = UPPER(dim_complaint_type_311.complaint_type) */
+    
