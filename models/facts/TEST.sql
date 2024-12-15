@@ -14,4 +14,10 @@
 
 select * 
 from {{ ref("cleaned_311_data") }}
-where unique_key = 19245645
+where unique_key = 24123984
+-- brooklyn brooklyn 11233
+
+--select * 
+--from {{ ref("dim_location_joined") }}
+--where dim_location_joined_id = 8008
+-- brooklyn brooklyn 11217

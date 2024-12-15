@@ -5,7 +5,7 @@ with
     space_ as (select * from {{ ref("dim_space") }}),
     status as (select * from {{ ref("dim_status") }}),
     fct_complaint as (select * from {{ ref("cleaned_housing_maintenance_data") }})
-select distinct
+select 
     fct.problem_id as unique_key,
     dim_date_id,
     dim_status_id,
@@ -22,9 +22,9 @@ left join
     and fct.minor_category = complaint_type.minor_category
 left join
     location
-    on fct.problem_id = location.unique_key
-    and fct.post_code = location.zip_code
-    and fct.council_district = location.council_district
-    and fct.block = location.block
-where dim_location_joined_id is not null
-order by unique_key
+    on fct.post_code = location.zip_code
+    and fct.borough = location.borough
+
+
+
+

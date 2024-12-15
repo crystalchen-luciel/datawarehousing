@@ -7,16 +7,15 @@ with
             (
                 select distinct
                     coalesce(loc311.borough, loc_housing.borough) as borough,
-                    coalesce(loc311.zip_code, loc_housing.zip_code) as zip_code,
-                    city,
-                    loc_housing.council_district,
-                    loc_housing.block
+                    coalesce(loc311.zip_code, loc_housing.zip_code) as zip_code
                 from location_311 loc311
                 full outer join
                     location_housing loc_housing
                     on loc311.borough = loc_housing.borough
                     and loc311.zip_code = loc_housing.zip_code
-                where loc_housing.council_district is not null
+                    and loc311.city = loc_housing.city
+                    and loc311.council_district = loc_housing.council_district
+                    and loc311.block = loc_housing.block
             )
     )
 

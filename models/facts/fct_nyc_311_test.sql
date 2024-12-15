@@ -9,7 +9,7 @@ from fct_nyc_311 as fct
 inner join location_joined on fct.borough = location_joined.borough 
     and fct.incident_zip = location_joined.zip_code
     and fct.city = location_joined.city
-where fct.incident_zip = location_joined.zip_code
+
 /* with
     location_311 as (select * from {{ ref("dim_location_311") }}),
     date_311 as (select * from {{ ref("dim_date") }}),
